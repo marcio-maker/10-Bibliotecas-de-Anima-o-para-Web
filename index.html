@@ -1,0 +1,828 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>10 Bibliotecas de Animação para Web</title>
+    <style>
+        :root {
+            --primary: #3498db;
+            --secondary: #2ecc71;
+            --accent: #e74c3c;
+            --dark: #2c3e50;
+            --light: #ecf0f1;
+        }
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            background-color: #f5f7fa;
+            color: #333;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 20px 0;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+        
+        .library-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+        
+        .library-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .library-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 20px rgba(0,0,0,0.15);
+        }
+        
+        .card-header {
+            background: var(--dark);
+            color: white;
+            padding: 15px 20px;
+            border-bottom: 3px solid var(--primary);
+        }
+        
+        .card-header h2 {
+            font-size: 1.5rem;
+        }
+        
+        .card-body {
+            padding: 20px;
+        }
+        
+        .card-description {
+            margin-bottom: 20px;
+            color: #555;
+        }
+        
+        .example {
+            background: var(--light);
+            border-radius: 6px;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-left: 4px solid var(--primary);
+        }
+        
+        .example h3 {
+            color: var(--dark);
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+        }
+        
+        .example p {
+            margin-bottom: 15px;
+            font-size: 0.95rem;
+            color: #555;
+        }
+        
+        .demo-area {
+            background: white;
+            padding: 15px;
+            border-radius: 4px;
+            margin: 15px 0;
+            text-align: center;
+            min-height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+        }
+        
+        /* Elementos comuns para demonstrações */
+        .box {
+            width: 80px;
+            height: 80px;
+            background: var(--primary);
+            margin: 10px;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+        
+        .circle {
+            width: 50px;
+            height: 50px;
+            background: var(--accent);
+            border-radius: 50%;
+            margin: 10px;
+            display: inline-block;
+        }
+        
+        .btn {
+            background: var(--secondary);
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 10px 0;
+            font-size: 0.9rem;
+            transition: background 0.3s ease;
+        }
+        
+        .btn:hover {
+            background: #27ae60;
+        }
+        
+        .text-animation {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin: 10px 0;
+            color: var(--dark);
+        }
+        
+        .tilt-box {
+            width: 150px;
+            height: 150px;
+            background: linear-gradient(45deg, #9b59b6, #3498db);
+            margin: 15px auto;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+        }
+        
+        /* Área específica para partículas */
+        .particles-container {
+            height: 200px;
+            background: var(--dark);
+            position: relative;
+            border-radius: 4px;
+            overflow: hidden;
+            margin: 15px 0;
+        }
+        
+        /* Estilo para o canvas do Three.js */
+        .three-container {
+            width: 100%;
+            height: 250px;
+            background: #1a1a1a;
+            border-radius: 4px;
+            margin: 15px 0;
+        }
+        
+        /* Responsividade */
+        @media (max-width: 768px) {
+            .library-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>10 Bibliotecas de Animação para Web</h1>
+            <p class="subtitle">Exemplos práticos e demonstrações interativas</p>
+        </header>
+        
+        <div class="library-grid">
+            
+            <!-- Anime.js -->
+            <div class="library-card">
+                <div class="card-header">
+                    <h2>Anime.js</h2>
+                </div>
+                <div class="card-body">
+                    <p class="card-description">Biblioteca leve de animação JavaScript com API simples mas poderosa para criar animações fluidas.</p>
+                    
+                    <div class="example">
+                        <h3>Exemplo 1: Animação Básica</h3>
+                        <p>Animação que combina movimento, rotação e mudança de cor.</p>
+                        <div class="demo-area">
+                            <div class="box" id="anime-box1"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="example">
+                        <h3>Exemplo 2: Timeline (Sequências)</h3>
+                        <p>Animações em sequência com diferentes configurações para cada elemento.</p>
+                        <div class="demo-area">
+                            <div class="circle" id="anime-circle1"></div>
+                            <div class="circle" id="anime-circle2"></div>
+                            <div class="circle" id="anime-circle3"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- GSAP -->
+            <div class="library-card">
+                <div class="card-header">
+                    <h2>GSAP</h2>
+                </div>
+                <div class="card-body">
+                    <p class="card-description">GreenSock Animation Platform - Biblioteca profissional para animações de alto desempenho.</p>
+                    
+                    <div class="example">
+                        <h3>Exemplo 1: Easing Personalizado</h3>
+                        <p>Animação com easing elástico e efeito de rebote.</p>
+                        <div class="demo-area">
+                            <div class="box" id="gsap-box1"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="example">
+                        <h3>Exemplo 2: Efeito Stagger</h3>
+                        <p>Animação em cascata para múltiplos elementos com delay automático.</p>
+                        <div class="demo-area">
+                            <div class="circle gsap-circle"></div>
+                            <div class="circle gsap-circle"></div>
+                            <div class="circle gsap-circle"></div>
+                            <div class="circle gsap-circle"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Barba.js -->
+            <div class="library-card">
+                <div class="card-header">
+                    <h2>Barba.js</h2>
+                </div>
+                <div class="card-body">
+                    <p class="card-description">Biblioteca para criar transições suaves entre páginas (estilo SPA).</p>
+                    
+                    <div class="example">
+                        <h3>Exemplo 1: Transição de Fade</h3>
+                        <p>Efeito de esmaecimento entre páginas (simulado com botões).</p>
+                        <div class="demo-area">
+                            <button id="barba-prev" class="btn">Página Anterior</button>
+                            <div id="barba-container" style="padding: 20px;">Conteúdo da página atual</div>
+                            <button id="barba-next" class="btn">Próxima Página</button>
+                        </div>
+                    </div>
+                    
+                    <div class="example">
+                        <h3>Exemplo 2: Transição Personalizada</h3>
+                        <p>Transição com animação de deslize (simulada).</p>
+                        <div class="demo-area">
+                            <div id="barba-custom" style="height: 100px; overflow: hidden; position: relative;">
+                                <div style="position: absolute; width: 100%;">Conteúdo que desliza</div>
+                            </div>
+                            <button id="barba-trigger" class="btn">Ativar Transição</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Mo.js -->
+            <div class="library-card">
+                <div class="card-header">
+                    <h2>Mo.js</h2>
+                </div>
+                <div class="card-body">
+                    <p class="card-description">Biblioteca para motion graphics com ênfase em efeitos de partículas e formas.</p>
+                    
+                    <div class="example">
+                        <h3>Exemplo 1: Explosão de Partículas</h3>
+                        <p>Efeito de partículas ao clicar na área.</p>
+                        <div class="demo-area" id="mojs-area1" style="cursor: pointer; height: 150px;">
+                            Clique aqui para ver o efeito
+                        </div>
+                    </div>
+                    
+                    <div class="example">
+                        <h3>Exemplo 2: Animação de Formas</h3>
+                        <p>Criação dinâmica de formas com animação.</p>
+                        <div class="demo-area" id="mojs-area2" style="height: 150px;">
+                            <button id="mojs-trigger" class="btn">Mostrar Animação</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Particles.js -->
+            <div class="library-card">
+                <div class="card-header">
+                    <h2>Particles.js</h2>
+                </div>
+                <div class="card-body">
+                    <p class="card-description">Cria fundos de partículas interativas que respondem ao mouse.</p>
+                    
+                    <div class="example">
+                        <h3>Exemplo 1: Configuração Básica</h3>
+                        <p>Partículas simples com conexões entre elas.</p>
+                        <div class="demo-area">
+                            <div id="particles-js1" class="particles-container"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="example">
+                        <h3>Exemplo 2: Configuração Avançada</h3>
+                        <p>Partículas com diferentes formas e cores.</p>
+                        <div class="demo-area">
+                            <div id="particles-js2" class="particles-container"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Rellax.js -->
+            <div class="library-card">
+                <div class="card-header">
+                    <h2>Rellax.js</h2>
+                </div>
+                <div class="card-body">
+                    <p class="card-description">Efeito parallax suave baseado no scroll da página.</p>
+                    
+                    <div class="example">
+                        <h3>Exemplo 1: Parallax Simples</h3>
+                        <p>Elementos que se movem em velocidades diferentes ao rolar a página.</p>
+                        <div class="demo-area" style="height: 300px; overflow-y: scroll; position: relative; background: #f0f0f0;">
+                            <div style="height: 800px; position: relative;">
+                                <div class="box rellax" data-rellax-speed="1" style="position: absolute; top: 50px; left: 20px;">Velocidade 1</div>
+                                <div class="box rellax" data-rellax-speed="3" style="position: absolute; top: 200px; left: 120px; background: var(--accent);">Velocidade 3</div>
+                                <div class="box rellax" data-rellax-speed="-1" style="position: absolute; top: 350px; left: 220px; background: var(--secondary);">Velocidade -1</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="example">
+                        <h3>Exemplo 2: Parallax com Rotação</h3>
+                        <p>Elementos que rotacionam conforme a posição do scroll.</p>
+                        <div class="demo-area" style="height: 300px; overflow-y: scroll; position: relative; background: #f0f0f0;">
+                            <div style="height: 800px; position: relative;">
+                                <div class="box rellax-rotate" data-rellax-rotate="180" style="position: absolute; top: 150px; left: 50px; transform-origin: center;">Rotaciona</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- ScrollMagic -->
+            <div class="library-card">
+                <div class="card-header">
+                    <h2>ScrollMagic</h2>
+                </div>
+                <div class="card-body">
+                    <p class="card-description">Controla animações baseadas na posição do scroll.</p>
+                    
+                    <div class="example">
+                        <h3>Exemplo 1: Animação ao Rolar</h3>
+                        <p>Elemento que aparece quando chega a uma determinada posição.</p>
+                        <div class="demo-area" style="height: 300px; overflow-y: scroll; position: relative; background: #f0f0f0;">
+                            <div style="height: 800px; position: relative;">
+                                <div style="height: 200px;"></div>
+                                <div id="scrollmagic-box1" class="box" style="position: absolute; top: 200px; left: 50px; opacity: 0;">Aparece ao rolar</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="example">
+                        <h3>Exemplo 2: Fixar Elemento</h3>
+                        <p>Elemento que permanece fixo enquanto a página rola.</p>
+                        <div class="demo-area" style="height: 300px; overflow-y: scroll; position: relative; background: #f0f0f0;">
+                            <div style="height: 800px; position: relative;">
+                                <div id="scrollmagic-pin1" class="box" style="position: absolute; top: 100px; left: 50px; background: var(--secondary);">Fica fixo</div>
+                                <div style="height: 600px;"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Splitting.js -->
+            <div class="library-card">
+                <div class="card-header">
+                    <h2>Splitting.js</h2>
+                </div>
+                <div class="card-body">
+                    <p class="card-description">Efeitos de divisão e animação de texto com grande controle.</p>
+                    
+                    <div class="example">
+                        <h3>Exemplo 1: Divisão de Texto</h3>
+                        <p>Separação de texto em letras individuais para animação.</p>
+                        <div class="demo-area">
+                            <div class="text-animation" data-splitting>Texto Animado</div>
+                        </div>
+                    </div>
+                    
+                    <div class="example">
+                        <h3>Exemplo 2: Animação de Palavras</h3>
+                        <p>Separação por palavras com animação sequencial.</p>
+                        <div class="demo-area">
+                            <div class="text-animation" data-splitting="words">Este texto se divide em palavras</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Three.js -->
+            <div class="library-card">
+                <div class="card-header">
+                    <h2>Three.js</h2>
+                </div>
+                <div class="card-body">
+                    <p class="card-description">Biblioteca para renderizar gráficos 3D no navegador usando WebGL.</p>
+                    
+                    <div class="example">
+                        <h3>Exemplo 1: Cubo 3D Giratório</h3>
+                        <p>Objeto 3D básico com rotação automática.</p>
+                        <div class="demo-area">
+                            <div id="three-container1" class="three-container"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="example">
+                        <h3>Exemplo 2: Esfera com Textura</h3>
+                        <p>Objeto 3D com textura e iluminação.</p>
+                        <div class="demo-area">
+                            <div id="three-container2" class="three-container"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Tilt.js -->
+            <div class="library-card">
+                <div class="card-header">
+                    <h2>Tilt.js</h2>
+                </div>
+                <div class="card-body">
+                    <p class="card-description">Efeito de inclinação 3D em elementos ao mover o mouse.</p>
+                    
+                    <div class="example">
+                        <h3>Exemplo 1: Inclinação Básica</h3>
+                        <p>Efeito 3D que responde ao movimento do mouse.</p>
+                        <div class="demo-area">
+                            <div class="tilt-box" data-tilt>
+                                Passe o mouse aqui
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="example">
+                        <h3>Exemplo 2: Inclinação com Brilho</h3>
+                        <p>Efeito 3D com reflexo de luz.</p>
+                        <div class="demo-area">
+                            <div class="tilt-box" data-tilt data-tilt-glare="true" data-tilt-max-glare="0.5">
+                                Com efeito de brilho
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts das bibliotecas -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@barba/core"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mojs/1.0.0/mo.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/rellax/1.12.1/rellax.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ScrollMagic/2.0.8/ScrollMagic.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/ScrollTrigger.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/splitting/1.0.6/splitting.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tilt.js/1.2.1/tilt.jquery.min.js"></script>
+    
+    <!-- Scripts de inicialização -->
+    <script>
+        // Anime.js - Exemplo 1
+        anime({
+            targets: '#anime-box1',
+            translateX: 150,
+            rotate: '1turn',
+            backgroundColor: '#FF8C42',
+            duration: 2000,
+            loop: true,
+            direction: 'alternate',
+            easing: 'easeInOutSine'
+        });
+        
+        // Anime.js - Exemplo 2
+        const timeline = anime.timeline({
+            easing: 'easeOutExpo',
+            duration: 750,
+            loop: true,
+            direction: 'alternate'
+        });
+        
+        timeline
+            .add({
+                targets: '#anime-circle1',
+                translateX: 100,
+                backgroundColor: '#FF8C42',
+                delay: 300
+            })
+            .add({
+                targets: '#anime-circle2',
+                translateX: 100,
+                backgroundColor: '#9B59B6',
+                delay: 200
+            })
+            .add({
+                targets: '#anime-circle3',
+                translateX: 100,
+                backgroundColor: '#3498db'
+            });
+        
+        // GSAP - Exemplo 1
+        gsap.to("#gsap-box1", {
+            duration: 2,
+            x: 150,
+            rotation: 360,
+            ease: "elastic.out(1, 0.5)",
+            repeat: -1,
+            yoyo: true
+        });
+        
+        // GSAP - Exemplo 2
+        gsap.from(".gsap-circle", {
+            duration: 1.5,
+            scale: 0.5,
+            opacity: 0,
+            delay: 0.5,
+            stagger: 0.2,
+            ease: "back.out(1.7)",
+            y: 50,
+            repeat: -1,
+            yoyo: true
+        });
+        
+        // Barba.js - Exemplo 1 (simulado)
+        document.getElementById('barba-next').addEventListener('click', function() {
+            const container = document.getElementById('barba-container');
+            gsap.to(container, {
+                opacity: 0,
+                duration: 0.5,
+                onComplete: function() {
+                    container.textContent = "Novo conteúdo da página";
+                    gsap.to(container, { opacity: 1, duration: 0.5 });
+                }
+            });
+        });
+        
+        document.getElementById('barba-prev').addEventListener('click', function() {
+            const container = document.getElementById('barba-container');
+            gsap.to(container, {
+                opacity: 0,
+                duration: 0.5,
+                onComplete: function() {
+                    container.textContent = "Conteúdo da página atual";
+                    gsap.to(container, { opacity: 1, duration: 0.5 });
+                }
+            });
+        });
+        
+        // Barba.js - Exemplo 2 (simulado)
+        document.getElementById('barba-trigger').addEventListener('click', function() {
+            const container = document.getElementById('barba-custom');
+            gsap.to(container.querySelector('div'), {
+                y: -100,
+                opacity: 0,
+                duration: 0.5,
+                onComplete: function() {
+                    container.querySelector('div').textContent = "Novo conteúdo animado";
+                    gsap.to(container.querySelector('div'), {
+                        y: 0,
+                        opacity: 1,
+                        duration: 0.5
+                    });
+                }
+            });
+        });
+        
+        // Mo.js - Exemplo 1
+        const burst1 = new mojs.Burst({
+            parent: '#mojs-area1',
+            radius: { 0: 100 },
+            count: 12,
+            children: {
+                shape: 'polygon',
+                points: 5,
+                fill: ['#3498db', '#e74c3c', '#2ecc71'],
+                duration: 2000
+            }
+        });
+        
+        document.getElementById('mojs-area1').addEventListener('click', function(e) {
+            burst1.tune({ x: e.offsetX, y: e.offsetY }).replay();
+        });
+        
+        // Mo.js - Exemplo 2
+        document.getElementById('mojs-trigger').addEventListener('click', function() {
+            const triangle = new mojs.Shape({
+                parent: '#mojs-area2',
+                shape: 'polygon',
+                points: 3,
+                fill: 'none',
+                stroke: '#9b59b6',
+                strokeWidth: 5,
+                radius: 50,
+                duration: 1000,
+                isShowStart: true,
+                isShowEnd: false,
+                easing: 'elastic.out',
+                onComplete() {
+                    this.replay();
+                }
+            }).play();
+        });
+        
+        // Particles.js - Exemplo 1
+        particlesJS('particles-js1', {
+            particles: {
+                number: { value: 60, density: { enable: true, value_area: 800 } },
+                color: { value: "#ffffff" },
+                shape: { type: "circle" },
+                opacity: { value: 0.5, random: true },
+                size: { value: 3, random: true },
+                line_linked: { enable: true, distance: 150, color: "#ffffff", opacity: 0.4, width: 1 },
+                move: { enable: true, speed: 2, direction: "none", random: false, straight: false, out_mode: "out" }
+            },
+            interactivity: {
+                detect_on: "canvas",
+                events: {
+                    onhover: { enable: true, mode: "repulse" },
+                    onclick: { enable: true, mode: "push" }
+                }
+            }
+        });
+        
+        // Particles.js - Exemplo 2
+        particlesJS('particles-js2', {
+            particles: {
+                number: { value: 80 },
+                color: { value: ["#2ecc71", "#e74c3c", "#3498db", "#f1c40f"] },
+                shape: { type: ["circle", "triangle"] },
+                opacity: { value: 0.7, random: true },
+                size: { value: 5, random: true },
+                line_linked: { enable: true, distance: 200 },
+                move: { enable: true, speed: 3 }
+            }
+        });
+        
+        // Rellax.js - Exemplo 1
+        new Rellax('.rellax', {
+            speed: -2,
+            center: false,
+            wrapper: null,
+            round: true,
+            vertical: true,
+            horizontal: false
+        });
+        
+        // Rellax.js - Exemplo 2 (rotação)
+        new Rellax('.rellax-rotate', {
+            speed: 2,
+            center: false,
+            round: true,
+            vertical: true,
+            horizontal: false
+        });
+        
+        // ScrollMagic - Exemplo 1
+        const scrollContainer = document.querySelector('[style*="overflow-y: scroll"]');
+        scrollContainer.addEventListener('scroll', function() {
+            const box = document.getElementById('scrollmagic-box1');
+            const scrollTop = this.scrollTop;
+            
+            if (scrollTop > 100) {
+                gsap.to(box, { opacity: 1, x: 0, duration: 0.5 });
+            } else {
+                gsap.to(box, { opacity: 0, x: -50, duration: 0.5 });
+            }
+        });
+        
+        // ScrollMagic - Exemplo 2 (fixar elemento)
+        scrollContainer.addEventListener('scroll', function() {
+            const pinElement = document.getElementById('scrollmagic-pin1');
+            const scrollTop = this.scrollTop;
+            
+            if (scrollTop > 50 && scrollTop < 400) {
+                pinElement.style.position = 'fixed';
+                pinElement.style.top = '20px';
+                pinElement.style.left = '50px';
+            } else {
+                pinElement.style.position = 'absolute';
+                pinElement.style.top = scrollTop < 50 ? '100px' : '400px';
+                pinElement.style.left = '50px';
+            }
+        });
+        
+        // Splitting.js
+        Splitting();
+        
+        // Three.js - Exemplo 1 (Cubo)
+        const container1 = document.getElementById('three-container1');
+        const scene1 = new THREE.Scene();
+        const camera1 = new THREE.PerspectiveCamera(75, container1.clientWidth / 250, 0.1, 1000);
+        const renderer1 = new THREE.WebGLRenderer({ antialias: true });
+        
+        renderer1.setSize(container1.clientWidth, 250);
+        container1.appendChild(renderer1.domElement);
+        
+        const geometry1 = new THREE.BoxGeometry();
+        const material1 = new THREE.MeshPhongMaterial({ color: 0x00ff00 });
+        const cube1 = new THREE.Mesh(geometry1, material1);
+        scene1.add(cube1);
+        
+        const light1 = new THREE.DirectionalLight(0xffffff, 1);
+        light1.position.set(1, 1, 1);
+        scene1.add(light1);
+        
+        camera1.position.z = 5;
+        
+        function animate1() {
+            requestAnimationFrame(animate1);
+            cube1.rotation.x += 0.01;
+            cube1.rotation.y += 0.01;
+            renderer1.render(scene1, camera1);
+        }
+        animate1();
+        
+        // Three.js - Exemplo 2 (Esfera)
+        const container2 = document.getElementById('three-container2');
+        const scene2 = new THREE.Scene();
+        const camera2 = new THREE.PerspectiveCamera(75, container2.clientWidth / 250, 0.1, 1000);
+        const renderer2 = new THREE.WebGLRenderer({ antialias: true });
+        
+        renderer2.setSize(container2.clientWidth, 250);
+        container2.appendChild(renderer2.domElement);
+        
+        const geometry2 = new THREE.SphereGeometry(1, 32, 32);
+        const textureLoader = new THREE.TextureLoader();
+        const material2 = new THREE.MeshPhongMaterial({
+            map: textureLoader.load('https://threejs.org/examples/textures/planets/earth_atmos_2048.jpg'),
+            bumpMap: textureLoader.load('https://threejs.org/examples/textures/planets/earth_normal_2048.jpg'),
+            bumpScale: 0.05,
+            specularMap: textureLoader.load('https://threejs.org/examples/textures/planets/earth_specular_2048.jpg'),
+            specular: new THREE.Color('grey')
+        });
+        const sphere = new THREE.Mesh(geometry2, material2);
+        scene2.add(sphere);
+        
+        const light2a = new THREE.DirectionalLight(0xffffff, 1);
+        light2a.position.set(1, 1, 1);
+        scene2.add(light2a);
+        
+        const light2b = new THREE.AmbientLight(0x404040);
+        scene2.add(light2b);
+        
+        camera2.position.z = 3;
+        
+        function animate2() {
+            requestAnimationFrame(animate2);
+            sphere.rotation.y += 0.005;
+            renderer2.render(scene2, camera2);
+        }
+        animate2();
+        
+        // Tilt.js
+        $('.tilt-box').tilt({
+            scale: 1.05,
+            glare: true,
+            maxGlare: 0.3,
+            perspective: 1000,
+            maxTilt: 15,
+            speed: 500
+        });
+    </script>
+</body>
+</html>
